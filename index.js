@@ -34,5 +34,5 @@ app.get('/*', (req, res) => res.sendFile(`${__dirname}/public/index.html`));
 
 app.use(errorHandler);
 
-// app.listen(port, () => console.log(`Express is listening on port ${port}`));
-server.listen(port, () => console.log(`Express is listening on port ${port}`));
+app.listen(port, () => console.log(`Express app is listening on port ${port}`));
+// server.listen(port, () => console.log(`Express is listening on port ${port}!`));

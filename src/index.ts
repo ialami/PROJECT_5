@@ -40,6 +40,6 @@ app.use('/api', routes);
 
 // app.use(errorHandler); //uncomment when file created
 
-app.listen(port, () => console.log(`Express is listening on port ${port}`));
+app.listen(port, () => console.log(`Express app is listening on port ${port}`));
 // server.listen(port, () => console.log(`Express is listening on port ${port}`));
 

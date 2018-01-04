@@ -14,4 +14,4 @@ app.use(morgan('dev'));
 app.use(express.static(`${__dirname}/public`));
 app.use(bodyParser.json());
 app.use('/api', routes);
-app.listen(port, () => console.log(`Express is listening on port ${port}`));
+app.listen(port, () => console.log(`Express app is listening on port ${port}`));
