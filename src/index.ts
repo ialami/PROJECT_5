@@ -21,12 +21,13 @@ mongoose.plugin(require('mongoose-unique-validator'));
 import * as morgan from 'morgan';
 import * as bodyParser from 'body-parser';
 
-const { port, dbURI }   = require('./environment/config');
+import config from './environment/config';
+// const { port, dbURI }   = require('./environment/config');
 const routes          = require('./routes/routes');
 // const customResponses = require('./lib/customResponses');
 // const errorHandler    = require('./lib/errorHandler');
 
-mongoose.connect(dbURI, { useMongoClient: true });
+mongoose.connect(config.dbURI, { useMongoClient: true });
 
 app.use(morgan('dev'));
 app.use(express.static(`${__dirname}/public`));
@@ -40,6 +41,6 @@ app.use('/api', routes);
 
 // app.use(errorHandler); //uncomment when file created
 
-app.listen(port, () => console.log(`Express app is listening on port ${port}`));
+app.listen(config, () => console.log(`Express app is listening on port ${config.port}`));
 // server.listen(port, () => console.log(`Express is listening on port ${port}`));
 

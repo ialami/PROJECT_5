@@ -1,23 +1,26 @@
-// import { IUser, User } from '../user';
+import { User, IUser } from '../user';
+import config from '../../../environment/config';
 
-import { NextFunction, Request, Response } from 'express';
-
-// import { UserSchema } from './schema';
+const jwt = require('jsonwebtoken');
 
 export class AuthenticationService {
-    static async register(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<any> {
+    static async register(options: any) {
         try {
-            return new Promise((resolve, reject) => {
-                console.log('req in AuthService', req);
-                // const token = jwt.sign( { userId: req.id }, secret, {expiresIn: '1hr'} );
+            // creating a new user and saving it. .create creates either a string or an array, this way is more specific.
+            let user: IUser = new User(options.body);
+            user = await user.save();
 
-                return resolve(req);
-                // reject('error bla');
-            });
+            // passing in a token
+            const token = jwt.sign( { userId: user.id }, config.secret, { expiresIn: '1hr' } )
+
+            // response from the service
+            const response = {
+                user,
+                token,
+                message: `Welcome ${user.username} !`
+            }
+
+            return response;
         } catch (e) {
             throw e;
         }
