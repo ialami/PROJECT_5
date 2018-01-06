@@ -1,3 +1,7 @@
+// Load environment variables from '.env' file if exist into process.env
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 // Setup express app
 import * as express from 'express';
 const app       = express();
@@ -22,7 +26,6 @@ import * as morgan from 'morgan';
 import * as bodyParser from 'body-parser';
 
 import config from './environment/config';
-// const { port, dbURI }   = require('./environment/config');
 const routes          = require('./routes/routes');
 // const customResponses = require('./lib/customResponses');
 // const errorHandler    = require('./lib/errorHandler');

@@ -10,6 +10,7 @@
     "build-ts": "tsc",
     "tsc": "node ./node_modules/typescript/bin/tsc",
     "tsc:w": "node ./node_modules/typescript/bin/tsc -w",
+    "test": "node ./node_modules/mocha/bin/mocha --require ts-node/register \"./test/**/*.spec.ts\"",
     "//": {
       "start:client": "webpack-dev-server",
       "build": "webpack -p",
@@ -30,6 +31,7 @@
   },
   "homepage": "https://github.com/ialami/PROJECT_5#readme",
   "dependencies": {
+    "@types/chai": "^4.0.5",
     "axios": "^0.17.1",
     "bcrypt": "^1.0.3",
     "bluebird": "^3.5.1",
@@ -45,6 +47,7 @@
     "jane": "^0.7.1",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
+    "logger": "0.0.1",
     "mongoose": "^4.12.6",
     "mongoose-fill": "^1.7.0",
     "mongoose-unique-validator": "^1.0.6",
@@ -88,6 +91,8 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.7",
     "eslint": "^4.8.0",
