@@ -14,6 +14,6 @@ export interface IUserRaw {
     _id: any;
     // id: any; //error
 
-    // validatePassword(password: string): any;
+    validatePassword(password: string): any;
     // hashPassword(): any;
 }

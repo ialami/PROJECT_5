@@ -6,11 +6,7 @@ import { AuthenticationService } from '../models/authentication';
 // import { log } from 'util';
 
 module.exports = class Auth {
-    /**
-     * POST /login
-     * Unprotected
-     */
-
+  
      /**
       * POST /register
       * Unprotected
@@ -29,4 +25,21 @@ module.exports = class Auth {
         }
     }
 
+      /**
+        * POST /login
+        * Unprotected
+        */
+
+    public static async login(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
+        try {
+            const response = await AuthenticationService.login(req);
+            return res.status(response.status).json(response.body);
+        } catch(e) {
+            return next(e);
+        }
+    }
 };

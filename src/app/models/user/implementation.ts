@@ -2,13 +2,17 @@ import { IUserRaw } from './interface';
 // import { Validator } from '../validator';
 
 export class ImplUser implements IUserRaw {
+    // User information
     public fullName: string;
     public username: string;
+    // User credentials
     public email: string;
     public password: string;
     public passwordConfirmation: any;
     public _id: any;
-    // public validatePassword(password: string): any;
+
+    // Functions
+    public validatePassword: any;
     // public hashPassword(): any;
 
     constructor(
@@ -18,6 +22,7 @@ export class ImplUser implements IUserRaw {
         password: string,
         passwordConfirmation: any,
         _id: any,
+        validatePassword: any
     ) {
         this.fullName = fullName;
         this.username = username;
@@ -25,5 +30,6 @@ export class ImplUser implements IUserRaw {
         this.password = password;
         this.password = passwordConfirmation;
         this._id      = _id;
+        this.validatePassword = validatePassword;
    }
 }
