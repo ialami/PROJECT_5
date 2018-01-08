@@ -44,6 +44,9 @@ app.use('/api', routes);
 
 // app.use(errorHandler); //uncomment when file created
 
-app.listen(config, () => console.log(`Express app is listening on port ${config.port}`));
+if (app.get('env') !== 'test') {
+    app.listen(config.port, () => console.log(`Express app is listening on port ${config.port}`));
+}
 // server.listen(port, () => console.log(`Express is listening on port ${port}`));
 
+module.exports = app;

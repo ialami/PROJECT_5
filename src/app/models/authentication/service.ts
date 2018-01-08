@@ -7,14 +7,15 @@ export class AuthenticationService {
 
     public static async register(options: any) {
         try {
-            // creating a new user and saving it. .create creates either a string or an array, this way is more specific.
+            // Creating a new user and saving it. .create creates either a string or an array, this way is more specific.
             let user: IUser = new User(options.body);
+console.log('USer', user);
             user = await user.save();
 
-            // passing in a token
-            const token = jwt.sign( { userId: user.id }, config.secret, { expiresIn: '1hr' } )
+            // Create a token
+            const token: string = jwt.sign( { userId: user.id }, config.secret, { expiresIn: '1hr' } )
 
-            // response from the service
+            // Response from the service
             const response = {
                 user,
                 token,
@@ -23,6 +24,7 @@ export class AuthenticationService {
 
             return response;
         } catch (e) {
+            console.log('ERROR', e)
             throw e;
         }
     }
@@ -34,17 +36,17 @@ export class AuthenticationService {
 
             // Error response
             const errorResponse = {
-                status: 404,
                 body: {
                     message: 'Incorrect credentials'
-                }
+                },
+                status: 404
             }
 
             // Handle errors
             if (!user || !user.validatePassword(options.body.password)) return errorResponse;
 
             // Create a token
-            const token = jwt.sign( { userId: user.id }, config.secret, { expiresIn: '1hr' } )
+            const token: string = jwt.sign( { userId: user.id }, config.secret, { expiresIn: '1hr' } )
 
             // Response
             const response = {

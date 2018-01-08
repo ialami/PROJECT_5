@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 // import * as mongoose from 'mongoose-fill';
 // const mongoose = require('mongoose-fill');
 import * as bcrypt from 'bcrypt';
-// import * as validator from 'validator';
+import * as validator from 'validator';
 
 export const UserSchema: Schema = new Schema(
     {
@@ -43,6 +43,9 @@ UserSchema.set('toJSON', {
     virtuals: true,
     transform(doc, ret) {
       delete ret.__v;
+      delete ret._id;
+      delete ret.password;
+      delete ret.passwordConfirmation;
       return ret;
     }
   });
@@ -87,17 +90,17 @@ UserSchema
 
 */
 
-// UserSchema
-//   .path('username')
-//   .validate(validateUsername);
+UserSchema
+  .path('username')
+  .validate(validateUsername);
 
-// UserSchema
-//   .path('email')
-//   .validate(validateEmail);
+UserSchema
+  .path('email')
+  .validate(validateEmail);
 
-// UserSchema
-//   .path('password')
-//   .validate(validatePasswordInfo);
+UserSchema
+  .path('password')
+  .validate(validatePasswordInfo);
 
 UserSchema
   .virtual('passwordConfirmation')
@@ -117,14 +120,14 @@ function setPasswordConfirmation(passwordConfirmation) {
   this._passwordConfirmation = passwordConfirmation;
 }
 
-// function validatePasswordInfo() {
-//   if (this.isNew) {
-//     if (!this.password) return this.invalidate('password', 'A password is required.');
-//     if (this.password.length < 6) return this.invalidate('password', 'Password must be longer than 6 characters.');
-//     if (this.password !== this._passwordConfirmation) return this.invalidate('password', 'Passwords do not match.');
-//     if (this.password.indexOf(' ') > 0) return this.invalidate('password', 'Password must not contain white spaces.');
-//   }
-// }
+function validatePasswordInfo() {
+  if (this.isNew) {
+    if (!this.password) return this.invalidate('password', 'A password is required.');
+    if (this.password.length < 6) return this.invalidate('password', 'Password must be longer than 6 characters.');
+    if (this.password !== this._passwordConfirmation) return this.invalidate('password', 'Passwords do not match.');
+    if (this.password.indexOf(' ') > 0) return this.invalidate('password', 'Password must not contain white spaces.');
+  }
+}
 
 function hashPassword(next) {
   if (this.isModified('password')) {
@@ -133,13 +136,13 @@ function hashPassword(next) {
   next();
 }
 
-// function validateEmail(email) {
-//   if (!validator.isEmail(email)) return this.invalidate('email', 'It must be a valid email address.');
-// }
+function validateEmail(email) {
+  if (!validator.isEmail(email)) return this.invalidate('email', 'It must be a valid email address.');
+}
 
-// function validateUsername(username) {
-//   if (username.indexOf(' ') > 0) return this.invalidate('username', 'Username must not contain white spaces.');
-// }
+function validateUsername(username) {
+  if (username.indexOf(' ') > 0) return this.invalidate('username', 'Username must not contain white spaces.');
+}
 
 /*
 function getFriends(next) {

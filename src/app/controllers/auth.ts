@@ -1,9 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-// import { log } from 'util';
 import { AuthenticationService } from '../models/authentication';
-// import { UserService } from '../models/user';
-// import { log } from 'util';
 
 module.exports = class Auth {
   
@@ -42,4 +39,5 @@ module.exports = class Auth {
             return next(e);
         }
     }
+    
 };

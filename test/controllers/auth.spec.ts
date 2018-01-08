@@ -57,8 +57,16 @@ function registerTests() {
 function correctCredentials(done) {
     chai
         .request(server)
-        .post('/api/register')
+        .post('/api/register') // ERROR HERE
+        .send({
+            email: 'ismail@ismail.com',
+            password: 'password',
+            passwordConfirmation: 'password',
+            username: 'ismailou',
+            fullName: 'Ismail Alami'
+        })
         .then((res: any) => {
+            console.log('res.body', res.body);
             // type of response
             res.should.have.status(200);
             res.type.should.equal('application/json');
@@ -70,24 +78,23 @@ function correctCredentials(done) {
             // user key
             res.body.user.should.be.a('object');
             // -- verify keys
-            res.body.should.have.property('email');
-            res.body.should.have.property('password');
-            res.body.should.have.property('username');
-            res.body.should.have.property('fullName');
-            res.body.should.have.property('_id');
-            res.body.should.have.property('passwordConfirmation');
-            res.body.should.have.property('id');
+            res.body.user.should.have.property('email');
+            res.body.user.should.have.property('username');
+            res.body.user.should.have.property('fullName');
+            res.body.user.should.have.property('id');
             // -- verify types
             res.body.user.email.should.be.a('string');
-            res.body.user.password.should.be.a('string');
             res.body.user.username.should.be.a('string');
             res.body.user.fullName.should.be.a('string');
-            res.body.user._id.should.be.a('string');
-            res.body.user.passwordConfirmation.should.be.a('string');
             res.body.user.id.should.be.a('string');
             // token key
             res.body.token.should.be.a('string');
             // message key
             res.body.message.should.be.a('string');
+            done();
+        })
+        .catch((err: any) => {
+            console.log('err', err);
+            done(err);
         })
 }
